@@ -12,7 +12,17 @@ import * as Consts from '../Consts';
 
 class Chat extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: (navigation.state.params || {}).name || 'Chat!',
+    title: 'HazAdapt',
+          headerStyle: {
+            backgroundColor: '#e75025',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: 28,
+            fontWeight: '300',
+          },
+          headerBackTitleVisible: false,
   });
 
   // serverthing = ServerHandler();

@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import io from "socket.io-client";
 import WifiManager from 'react-native-wifi';
 import Chat from './Chat';
+import HomeScreen from './HomeScreen';
 import * as Consts from '../Consts';
 
 import ServerHandler from '../ServerHandler';
@@ -17,6 +18,8 @@ class Main extends Component {
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <Button title="Go to chat" onPress={() => navigate('Chat')} />
+
+        <Button title="Start App!!!!!!" onPress={() => navigate('HomeScreen')} />
 
         <TouchableOpacity style={styles.paddedTap} onPress={() => getMoviesFromApiAsync()}>
           <Text> Tap here to initiate http request!! </Text>
