@@ -3,8 +3,10 @@ import { StyleSheet } from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
+import * as Consts from './Consts';
 import Main from './components/Main';
 import Chat from './components/Chat';
+
 
 // Create the navigator
 const navigator = createStackNavigator({

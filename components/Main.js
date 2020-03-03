@@ -3,6 +3,12 @@ import { StyleSheet, Text, View, Button, ToastAndroid, Alert } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import io from "socket.io-client";
 import WifiManager from 'react-native-wifi';
+import Chat from './Chat';
+import * as Consts from '../Consts';
+
+import ServerHandler from '../ServerHandler';
+
+var handle = new ServerHandler(Consts.DEFAULT_SERVER_URL);
 
 class Main extends Component {
   render() {
@@ -58,18 +64,47 @@ function getMoviesFromApiAsync() {
     });
 }
 
+function handlerfunc(msg) {
+  console.warn(msg,'recieved from the server');
+}
 
 function makeSocket() {
-  if (!this.socket) this.socket = io('http://192.168.4.1:3000');
+  // if (!this.socket) {
+  //   this.socket = io('http://192.168.4.1:3000');
 
-  // this.socket.emit('connection');
-  this.socket.emit('messagedetection', 'Idk im just fuckin tossing bikes in the river bro');
+  //   this.socket.on(Consts.SOCKET_REC_ALL_MSGS, msg => {
+  //     console.log(msg);
+  //   });
+  // }
 
-  // this.socket.on('chat message', msg => {
+  // // this.socket.emit('connection');
+
+  // ********* old code above
+
+
+  // CURRENT CODE BELOW:
+
+  // handle.socket.emit('messagedetection', 'hello, world', 'whatever');
+  handle.socket.emit(Consts.SOCKET_FIRST_CONNECTION, 'hello, world', 'whatever');
+
+  // handle.socket.on(Consts.SOCKET_REC_ALL_MSGS, (msg) => console.log(msg));
+  handle.on(Consts.SOCKET_REC_ALL_MSGS, handlerfunc);
+
+  // handle.init(Consts.DEFAULT_SERVER_URL);
+  // handle.on(Consts.SOCKET_FIRST_CONNECTION, handlerfunc);
+
+
+
+
+  // TODO: don't look at this
+  // this.socket.on(SOCKET_REC_ALL_MSGS, msg => {
   //   console.log(msg);
-  //   // this.setState({
-  //   //   chatMessages: [...this.state.chatMessages, msg]
-  //   // });
+
+  //   console.log(this);
+
+  //   this.setState({
+  //     chatMessages: [...this.state.chatMessages, msg]
+  //   });
   // });
 }
 
