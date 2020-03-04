@@ -16,11 +16,14 @@ import {
   Header,
   ListItem,
   Button,
-} from 'react-native-elements'
+  CheckBox
+} from 'react-native-elements';
+
+import { TextInput } from 'react-native-paper';
 
 //import Icon from 'react-native-vector-icons/AntDesign'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+//import { NavigationContainer } from '@react-navigation/native';
+//import { createStackNavigator } from '@react-navigation/stack';
 
 import {
   CardItem,
@@ -28,8 +31,6 @@ import {
 } from 'native-base'
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-
-import { RadioButton } from 'react-native-paper';
 
 import {
   LearnMoreLinks,
@@ -53,53 +54,106 @@ const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 
 
 
-export default class HelpForm extends React.Component{
+class HelpForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-    checked: 'first',
+    checked: false,
+    text: '',
     };
     //this.handleChange = this.handleChange.bind(this);
   }
+
+  static navigationOptions = ({ navigation }) => ({
+    title: 'HazAdapt',
+          headerStyle: {
+            backgroundColor: '#e75025',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontFamily: Platform.OS === 'android'
+              ? 'normal'
+              : 'Helvetica Neue',
+            fontSize: 28,
+            fontWeight: '300',
+          },
+          headerBackTitleVisible: false,
+  });
   render(){
-    const { checked } = this.state;
+    const { checked,checked2,checked3 } = this.state;
+
     return (
-      <View>
-        <RadioButton
-          value="first"
-          status={checked === 'first' ? 'checked' : 'unchecked'}
-          onPress={() => { this.setState({ checked: 'first' }); }}
-        />
-        <RadioButton
-          value="second"
-          status={checked === 'second' ? 'checked' : 'unchecked'}
-          onPress={() => { this.setState({ checked: 'second' }); }}
-        />
+      <View style={styles.body}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>What is your status?</Text>
+        <Text style={styles.sectionDescription}>
+          Select all that apply.
+        </Text>
+        <CheckBox
+  title='I am safe.'
+  checked={this.state.checked}
+  checked2={this.state.checked2}
+  checked3={this.state.checked3}
+
+  onPress={() => { this.setState({ checked: !checked }); }}
+  checkedIcon='check-square'
+  checkedColor='#e75025'
+  uncheckedIcon='square'
+  uncheckedColor='#f2f2f2'
+/>
+<CheckBox
+title='I am hurt.'
+checked={this.state.checked2}
+onPress={() => { this.setState({ checked2: !checked2 }); }}
+checkedIcon='check-square'
+checkedColor='#e75025'
+uncheckedIcon='square'
+uncheckedColor='#f2f2f2'
+/>
+<CheckBox
+title='I am trapped.'
+checked={this.state.checked3}
+onPress={() => { this.setState({ checked3: !checked3 }); }}
+checkedIcon='check-square'
+checkedColor='#e75025'
+uncheckedIcon='square'
+uncheckedColor='#f2f2f2'
+/>
+<Text style={styles.sectionDetails}>
+  Do you have any more details?
+</Text>
+<TextInput style={styles.textBox}
+        value={this.state.text}
+        onChangeText={text => this.setState({ text })}
+      />
+      </View>
+
       </View>
     );
   }
 
 }
 
-function HelpFormScreen({ navigation }){
-
-  return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-
-          <View style={styles.body}>
-
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
-
 const styles = StyleSheet.create({
+  sectionDetails:{
+    flex: 1,
+    top: 30,
+    textAlign: 'center',
+    width: 'auto',
+    height: 36,
+    color: '#151522',
+    fontFamily: Platform.OS === 'android'
+      ? 'normal'
+      : 'Helvetica Neue',
+    fontSize: 16,
+    fontWeight: '300',
+    letterSpacing: 0.5,
+    lineHeight: 22,
+  },
+  textBox:{
+    flex: 1,
+    top: 35,
+  },
   buttonText: {
     color: Colors.black,
     fontFamily: 'Helvetica Neue',
@@ -143,6 +197,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f2f2f2',
     //backgroundColor: Colors.black,
+    flex: 1,
+  },
+  checkOptions: {
     flex: 1,
   },
   statusBar: {
@@ -189,9 +246,11 @@ const styles = StyleSheet.create({
     top: 40,
   },
   body: {
+    flex: 1,
     backgroundColor: '#f2f2f2',
   },
   sectionContainer: {
+    flex: 3,
     //padding: 15,
     //left: 28,
     top: 18,
@@ -199,7 +258,9 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 28,
     color: '#151522',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: Platform.OS === 'android'
+      ? 'normal'
+      : 'Helvetica Neue',
     fontSize: 28,
     fontWeight: '700',
     lineHeight: 34,
@@ -215,7 +276,9 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 36,
     color: '#151522',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: Platform.OS === 'android'
+      ? 'normal'
+      : 'Helvetica Neue',
     fontSize: 16,
     fontWeight: '300',
     letterSpacing: 0.5,
@@ -244,3 +307,5 @@ const styles = StyleSheet.create({
       color: Colors.white,
   },
 });
+
+export default HelpForm;

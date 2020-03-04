@@ -65,6 +65,7 @@ class HomeScreen extends Component {
   });
 
   render(){
+    const {navigate} = this.props.navigation;
     return (
       <>
         <SafeAreaView style={styles.container}>
@@ -79,10 +80,10 @@ class HomeScreen extends Component {
               </View>
               <View style={styles.cards}>
               <Card style={styles.cardContainer}>
-              <CardItem button onPress={() => navigation.navigate('Details')}>
+              <CardItem button onPress={() => navigate('HelpForm')}>
               <View style={styles.circle} />
               </CardItem>
-              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigation.navigate('Details')}>
+              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigate('HelpForm')}>
                 <Text style={styles.buttonText}>Get Help</Text>
               </CardItem>
               </Card>
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   cards: {
-    flex: 14,
+    flex: 12,
     top: '-5%',
     // height: '90%',
     //height: 287,
