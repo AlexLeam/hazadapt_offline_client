@@ -28,15 +28,16 @@ class ServerHandler {
         //     console.log(msg);
         // })
 
-        this.socket.on(Consts.SOCKET_REC_SINGLE_MSG, msg => {
-            this.messageStore.push({text: 'JSON.stringify(msg)', user: 'Joe Bongo'});
-            console.warn('got stuff back', this.messageStore);
-        });
+        // this.socket.on(Consts.SOCKET_REC_SINGLE_MSG, msg => {
+        //     this.messageStore.push({text: 'JSON.stringify(msg)', user: 'Joe Bongo'});
+        //     console.warn('got stuff back', this.messageStore);
+        // });
     }
 
     send = (msgs = []) => {
         // msgs should be an array of gifted-chat compatible objects
-        this.socket.emit(Consts.SOCKET_SEND_MSG, 'username', 'hello world!!')
+        // TODO: for now, this is just 2 things, hellome (username) and a string Echo! (message, but it yells at me to try and pass a var in)
+        this.socket.emit(Consts.SOCKET_SEND_MSG, 'hellome', 'Echo!');
 
         // TODO: Make this take the message, and then structure a json object that includes:
         //          - the message
@@ -47,7 +48,15 @@ class ServerHandler {
 
     on = (msgType, handlerFunc, handlerCtx) => {
         console.log('in on function');
-        this.socket.on(msgType, (msg) => {console.warn('calling handler func', msg); handlerFunc([msg], handlerCtx)});
+        this.socket.on(msgType, (msg) => {
+
+            console.warn('Received message in server handler:', msg);
+            if(Array.isArray(msg) == false) {
+                msg = [msg];
+            }
+
+            handlerFunc(msg, handlerCtx)
+        });
     }
 }
 
