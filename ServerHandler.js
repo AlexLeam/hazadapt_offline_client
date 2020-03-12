@@ -37,7 +37,9 @@ class ServerHandler {
     send = (msgs = []) => {
         // msgs should be an array of gifted-chat compatible objects
         // TODO: for now, this is just 2 things, hellome (username) and a string Echo! (message, but it yells at me to try and pass a var in)
-        this.socket.emit(Consts.SOCKET_SEND_MSG, 'hellome', 'Echo!');
+        msgs.forEach((msg) => {
+            this.socket.emit(Consts.SOCKET_SEND_MSG, 'hellome', msg.text);
+        });
 
         // TODO: Make this take the message, and then structure a json object that includes:
         //          - the message

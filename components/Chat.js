@@ -37,6 +37,8 @@ class Chat extends Component {
     messages: [],
   };
 
+  lastMessage = '';
+
   componentDidMount() {
     // serverSocket needs the type of message it is going to be watching for,
     //  the message handler function, and the current context
@@ -77,6 +79,9 @@ class Chat extends Component {
 
     console.log('Now we are sending these objects:', messages);
 
+    // FIXME: this is one half of a simple fix for the repeat message problem
+    this.lastMessage = messages[0].text;
+
     // Set state so GiftedChat has everything:
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
@@ -92,9 +97,12 @@ class Chat extends Component {
       msgObj._id = Math.random(1000);
     });
 
-    chatCtx.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+    // FIXME: other half of quick repeat message fix
+    if (messages[0].text != this.lastMessage) {
+      chatCtx.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages),
+      }));
+    }
   }
 
   render() {
