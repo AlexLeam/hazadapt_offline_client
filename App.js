@@ -7,15 +7,16 @@ import * as Consts from './Consts';
 import Main from './components/Main';
 import Chat from './components/Chat';
 import HomeScreen from './components/HomeScreen';
-//import HelpForm from './components/Helpform';
-
+import HelpForm from './components/HelpForm';
+import ServerList from './components/ServerList';
 
 // Create the navigator
 const navigator = createStackNavigator({
   Main: { screen: Main },
   Chat: { screen: Chat },
   HomeScreen: { screen: HomeScreen},
-  //HelpForm: { screen: HelpForm},
+  HelpForm: { screen: HelpForm},
+  ServerList: {screen: ServerList},
 });
 // // Export it as the root component
 // export default navigator;

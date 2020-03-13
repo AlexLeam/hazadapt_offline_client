@@ -80,6 +80,7 @@ class HelpForm extends Component{
           headerBackTitleVisible: false,
   });
   render(){
+    const {navigate} = this.props.navigation;
     const { checked,checked2,checked3 } = this.state;
 
     return (
@@ -90,41 +91,49 @@ class HelpForm extends Component{
           Select all that apply.
         </Text>
         <CheckBox
-  title='I am safe.'
-  checked={this.state.checked}
-  checked2={this.state.checked2}
-  checked3={this.state.checked3}
+          title='I am safe.'
+          checked={this.state.checked}
+          checked2={this.state.checked2}
+          checked3={this.state.checked3}
 
-  onPress={() => { this.setState({ checked: !checked }); }}
-  checkedIcon='check-square'
-  checkedColor='#e75025'
-  uncheckedIcon='square'
-  uncheckedColor='#f2f2f2'
-/>
-<CheckBox
-title='I am hurt.'
-checked={this.state.checked2}
-onPress={() => { this.setState({ checked2: !checked2 }); }}
-checkedIcon='check-square'
-checkedColor='#e75025'
-uncheckedIcon='square'
-uncheckedColor='#f2f2f2'
-/>
-<CheckBox
-title='I am trapped.'
-checked={this.state.checked3}
-onPress={() => { this.setState({ checked3: !checked3 }); }}
-checkedIcon='check-square'
-checkedColor='#e75025'
-uncheckedIcon='square'
-uncheckedColor='#f2f2f2'
-/>
-<Text style={styles.sectionDetails}>
-  Do you have any more details?
-</Text>
-<TextInput style={styles.textBox}
+          onPress={() => { this.setState({ checked: !checked }); }}
+          checkedIcon='check-square'
+          checkedColor='#e75025'
+          uncheckedIcon='square'
+          uncheckedColor='#f2f2f2'
+        />
+        <CheckBox
+        title='I am hurt.'
+        checked={this.state.checked2}
+        onPress={() => { this.setState({ checked2: !checked2 }); }}
+        checkedIcon='check-square'
+        checkedColor='#e75025'
+        uncheckedIcon='square'
+        uncheckedColor='#f2f2f2'
+        />
+        <CheckBox
+        title='I am trapped.'
+        checked={this.state.checked3}
+        onPress={() => { this.setState({ checked3: !checked3 }); }}
+        checkedIcon='check-square'
+        checkedColor='#e75025'
+        uncheckedIcon='square'
+        uncheckedColor='#f2f2f2'
+        />
+        <Text style={styles.sectionDetails}>
+          Do you have any more details?
+        </Text>
+      <TextInput style={styles.textBox}
+        mode='outlined'
+        underlineColor='#e75025'
+        selectionColor='#000000'
         value={this.state.text}
         onChangeText={text => this.setState({ text })}
+      />
+      <Button
+      title="SUBMIT"
+      containerStyle={styles.buttonStyle}
+      onPress={() => navigate('Chat')}
       />
       </View>
 
@@ -135,6 +144,14 @@ uncheckedColor='#f2f2f2'
 }
 
 const styles = StyleSheet.create({
+  buttonStyle:{
+    flex: 7,
+    bottom: 120,
+
+    left: 70,
+    paddingHorizontal: 100,
+    //backgroundColor: '#e75025',
+  },
   sectionDetails:{
     flex: 1,
     top: 30,
@@ -151,8 +168,10 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   textBox:{
-    flex: 1,
+    flex: 13,
     top: 35,
+    height: 95,
+    paddingHorizontal: 20,
   },
   buttonText: {
     color: Colors.black,

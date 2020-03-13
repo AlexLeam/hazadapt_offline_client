@@ -22,10 +22,18 @@ import {
 
 //import Icon from 'react-native-vector-icons/AntDesign'
 
+// import {
+//   CardItem,
+//   Card,
+// } from 'native-base'
+
 import {
-  CardItem,
-  Card,
-} from 'native-base'
+  List,
+  Title,
+  Paragraph,
+  Divider,
+  Searchbar,
+} from 'react-native-paper'
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
@@ -47,7 +55,10 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 
-class HomeScreen extends Component {
+class ServerList extends Component {
+  state = {
+    firstQuery: '',
+  };
   static navigationOptions = ({ navigation }) => ({
     title: 'HazAdapt',
           headerStyle: {
@@ -66,54 +77,90 @@ class HomeScreen extends Component {
 
   render(){
     const {navigate} = this.props.navigation;
+    const { firstQuery } = this.state;
     return (
-      <>
-        <SafeAreaView style={styles.container}>
-
-
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>You are Offline</Text>
-                <Text style={styles.sectionDescription}>
-                  Tap here to go online.
-                </Text>
-              </View>
-              <View style={styles.cards}>
-              <Card style={styles.cardContainer}>
-              <CardItem button onPress={() => navigate('HelpForm')}>
-              <View style={styles.circle} />
-              </CardItem>
-              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigate('ServerList')}>
-                <Text style={styles.buttonText}>Get Help</Text>
-              </CardItem>
-              </Card>
-              <Card style={styles.cardContainerLower}>
-              <CardItem button onPress={() => navigate('ServerList')}>
-              <View style={styles.circle} />
-              </CardItem>
-              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigate('ServerList')} first>
-                <Text style={styles.buttonText}>Find Chatrooms Nearby</Text>
-              </CardItem>
-              </Card>
-              </View>
-
-
-
-
-
-
-
-
-
-            </View>
-
-        </SafeAreaView>
-      </>
+      <View style={styles.cards}>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={query => { this.setState({ firstQuery: query }); }}
+        value={firstQuery}
+      />
+      <List.Section>
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         onPress={() => navigate('Chat')}
+         title="Kelley Engineering Atrium"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         disabled="True"
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Kelley Engineering North"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="West Dining Hall"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Milam Auditorium"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="McNary Dining Hall"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Memorial Union"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Valley Library North"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Valley Library South"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      <List.Item
+         titleStyle={styles.sectionTitle}
+         descriptionStyle={styles.sectionDescription}
+         title="Arnold Dining Hall"
+         description="Tap here to Connect >"
+      />
+      <Divider />
+      </List.Section>
+      </View>
     );
 }
 };
 
 const styles = StyleSheet.create({
+  greyedServer: {
+    backgroundColor: Colors.Black,
+  },
   buttonText: {
     color: Colors.black,
     fontFamily: Platform.OS === 'android'
@@ -159,11 +206,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   cards: {
-    flex: 12,
-    top: '-5%',
+    flex: 1,
+    //top: '-1%',
     // height: '90%',
     //height: 287,
-    justifyContent: 'center',
+    //justifyContent: 'center',
   },
 
   container: {
@@ -240,23 +287,22 @@ const styles = StyleSheet.create({
     lineHeight: 34,
   },
   sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-    textAlign: 'center',
-  },
-  sectionDescription: {
-    textAlign: 'center',
-    width: 'auto',
-    height: 36,
-    color: '#151522',
     fontFamily: Platform.OS === 'android'
       ? 'normal'
       : 'Helvetica Neue',
-    fontSize: 16,
-    fontWeight: '300',
-    letterSpacing: 0.5,
-    lineHeight: 22,
+    fontSize: 15,
+    fontWeight: '600',
+    color: Colors.black,
+    //textAlign: 'center',
+  },
+  sectionDescription: {
+    fontFamily: Platform.OS === 'android'
+      ? 'normal'
+      : 'Helvetica Neue',
+    fontSize: 14,
+    fontWeight: '200',
+    color: Colors.black,
+    //textAlign: 'center',
   },
   highlight: {
     fontWeight: '700',
@@ -283,4 +329,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ServerList;
