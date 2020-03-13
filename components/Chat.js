@@ -10,6 +10,8 @@ import * as Consts from '../Consts';
 // var serverSocket = new ServerHandler(Consts.DEFAULT_SERVER_URL);
 // serverSocket.on(Consts.SOCKET_REC_SINGLE_MSG, gotMsg);
 
+var lastMessage = '';
+
 class Chat extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'HazAdapt',
@@ -37,7 +39,7 @@ class Chat extends Component {
     messages: [],
   };
 
-  lastMessage = '';
+
 
   componentDidMount() {
     // serverSocket needs the type of message it is going to be watching for,
@@ -77,10 +79,11 @@ class Chat extends Component {
       msgObj.type = 'currently_selected_type';
     });
 
-    console.log('Now we are sending these objects:', messages);
+    // console.warn('Now we are sending these objects:', messages);
 
     // FIXME: this is one half of a simple fix for the repeat message problem
-    this.lastMessage = messages[0].text;
+    lastMessage = messages[0].text;
+    // console.warn('last message: ', lastMessage);
 
     // Set state so GiftedChat has everything:
     this.setState(previousState => ({
@@ -90,15 +93,14 @@ class Chat extends Component {
   }
 
   onRec(messages = [], chatCtx = this) {
-    console.warn('stuff rec\'d in messages', messages);
-
+    // console.warn('stuff rec\'d in messages', messages, 'but alsothis', lastMessage, 'andeq', messages[0].text == lastMessage);
     // FIXME: currently shoving some stuff in it
     messages.forEach(msgObj => {
       msgObj._id = Math.random(1000);
     });
 
     // FIXME: other half of quick repeat message fix
-    if (messages[0].text != this.lastMessage) {
+    if (messages[0].text != lastMessage) {
       chatCtx.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, messages),
       }));

@@ -13,7 +13,7 @@ class ServerHandler {
     }
 
     init = (addr, allMsgFunc, singleMsgFunc) => {
-        console.log('in handler init!! here is the value of this: ', this);
+        // console.log('in handler init!! here is the value of this: ', this);
 
         if (!this.socket) {
             // Only make a socket connection if one doesn't already exist
@@ -52,7 +52,7 @@ class ServerHandler {
         console.log('in on function');
         this.socket.on(msgType, (msg) => {
 
-            console.warn('Received message in server handler:', msg);
+            // console.warn('Received message in server handler:', msg);
             if(Array.isArray(msg) == false) {
                 msg = [msg];
             }
