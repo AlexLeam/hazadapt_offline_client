@@ -110,7 +110,7 @@ class Chat extends Component {
             name: 'username1'
           }}
         />
-        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
+        {/* {Platform.OS === 'android' ? <KeyboardSpacer /> : null } */}
       </View>
     );
   }

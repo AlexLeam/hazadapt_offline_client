@@ -95,60 +95,68 @@ class ServerList extends Component {
       />
       <Divider />
       <List.Item
-         disabled="True"
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Kelley Engineering North"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="West Dining Hall"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Milam Auditorium"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
+         disabledStyle={styles.greyedServer}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="McNary Dining Hall"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Memorial Union"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Valley Library North"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Valley Library South"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       <List.Item
+         disabled={true}
          titleStyle={styles.sectionTitle}
          descriptionStyle={styles.sectionDescription}
          title="Arnold Dining Hall"
-         description="Tap here to Connect >"
+         description="Out of Range"
       />
       <Divider />
       </List.Section>
@@ -159,7 +167,7 @@ class ServerList extends Component {
 
 const styles = StyleSheet.create({
   greyedServer: {
-    backgroundColor: Colors.Black,
+    backgroundColor: '#555555',
   },
   buttonText: {
     color: Colors.black,
@@ -215,7 +223,7 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: '#f2f2f2',
-    //backgroundColor: Colors.black,
+    // backgroundColor: Colors.black,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
