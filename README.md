@@ -31,3 +31,6 @@ If it doesn't by default, just hit the 'd' key.
 
 Use the Expo app on your phone to copy the QR code and watch it build! Hopefully no errors occur I'd be very confused because
 we got this to work every time but ¯\\_(ツ)_/¯ that's life.
+
+### NOTE:
+Android users may have some weird UI things happen that don't happen on IOS. Some of these bugs are new as of recent package updates so sorry if you see them.
