@@ -23,6 +23,12 @@ and chat flags and wifi-switching have had to be dropped. But! It's still mostly
 If you want you can run `npm audit fix` to try and get rid of some of the security warnings that were caused by some recent component
 library updates. It should work just fine without this, but I figured it should be acknowledged.
 
+Now to make the client line up with the server on your computer:
+- get the current ip address of your computer (run ipconfig in cmd or powershell on a Windows machine)
+- open `Consts.js` and change the `DEFAULT_SERVER_URL` to the ipv4 your computer is using, but be sure to leave the port as 3000
+
+Now when you run the project the URL will be pointing to the server on your computer
+
 ## Now run it!
 - Type `expo start`
 
@@ -31,6 +37,8 @@ If it doesn't by default, just hit the 'd' key.
 
 Use the Expo app on your phone to copy the QR code and watch it build! Hopefully no errors occur I'd be very confused because
 we got this to work every time but ¯\\_(ツ)_/¯ that's life.
+
+Now follow the instructions to set up the server and then try to chat!
 
 ### NOTE:
 Android users may have some weird UI things happen that don't happen on IOS. Some of these bugs are new as of recent package updates so sorry if you see them.
