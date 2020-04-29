@@ -80,6 +80,12 @@ class Chat extends Component {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));
+
+    // FIXME: this will make sure the socket is connected (occasionally had bugs where it would timeout)
+    if (this.serverSocket.socket.connected == false) {
+      this.serverSocket.init();
+      this.serverSocket.on(Consts.SOCKET_REC_SINGLE_MSG, this.onRec, this);
+    }
     this.serverSocket.send(messages)
   }
 
@@ -93,11 +99,11 @@ class Chat extends Component {
 
     // Add new messages to UI:
     // FIXME: this if statement is the other part of the repeated message fix
-    if (messages[0].text != lastMessage) {
+    // if (messages[0].text != lastMessage) {
       chatCtx.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, messages),
       }));
-    }
+    // }
   }
 
   render() {
