@@ -24,7 +24,7 @@ If you want you can run `npm audit fix` to try and get rid of some of the securi
 library updates. It should work just fine without this, but I figured it should be acknowledged.
 
 Now to make the client line up with the server on your computer:
-- get the current ip address of your computer (run ipconfig in cmd or powershell on a Windows machine)
+- get the current ip address of your computer (run ipconfig in cmd (`ipconfig getifaddr en0` on Mac terminal) or powershell on a Windows machine)
 - open `Consts.js` and change the `DEFAULT_SERVER_URL` to the ipv4 your computer is using, but be sure to leave the port as 3000
 
 Now when you run the project the URL will be pointing to the server on your computer
