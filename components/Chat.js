@@ -7,8 +7,8 @@ import io from "socket.io-client";
 import ServerHandler from '../ServerHandler';
 import * as Consts from '../Consts';
 
-// var serverSocket = new ServerHandler(Consts.DEFAULT_SERVER_URL);
-// serverSocket.on(Consts.SOCKET_REC_SINGLE_MSG, gotMsg);
+// FIXME: temporary server re-emit fix because we don't have rpi
+var lastMessage = '';
 
 class Chat extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -27,10 +27,8 @@ class Chat extends Component {
           headerBackTitleVisible: false,
   });
 
-  // serverthing = ServerHandler();
-  // handler.on(Consts.SOCKET_REC_ALL_MSGS, );
-
-  // socket = io('http://192.168.4.1:3000');
+  // This is a custom socket wrapper that simplifies using sockets and keeps only
+  // the important stuff here:
   serverSocket = new ServerHandler(Consts.DEFAULT_SERVER_URL);
 
   state = {
@@ -42,20 +40,16 @@ class Chat extends Component {
     //  the message handler function, and the current context
     this.serverSocket.on(Consts.SOCKET_REC_SINGLE_MSG, this.onRec, this);
 
-    // TEMP: this shit sets up an all-rec listener and then sends the message to initiate that
-    // this.serverSocket.on(Consts.SOCKET_REC_ALL_MSGS, this.onRec, this);
-    // this.serverSocket.socket.emit(Consts.SOCKET_FIRST_CONNECTION, 'username', 'here is my first connection');
 
-
-    // TODO: Add logic where messages are stored client side as they're recieved so
+    // FIXME: once server is back to being a raspberri pi and we can use a timestamp system:
+    // Add logic where messages are stored client side as they're recieved so
     // they don't clear out (and the server doesn't have to send so many things)
-
     // This will involve some timestamp wizardry with the server and with this app
     this.setState({
       messages: [
         {
           _id: 1,
-          text: "Hello developer",
+          text: "Default message",
           createdAt: new Date(),
           user: {
             _id: 2,
@@ -67,15 +61,20 @@ class Chat extends Component {
     });
   }
 
+  // NOTE: these messages that are being sent should be an array of one object,
+  //  we've never seen it be more than that but I belive it is possible with a big enough message
   onSend(messages = []) {
-    console.log('the default onsend sends:', messages);
-
     // Add formatting specific to Hazadapt:
     messages.forEach(msgObj => {
+      // FIXME: Due to post-COVID server limitations, the Tag system is unusable
+      //        Just use a dummy variable for now, change to real type once using rpi server again
       msgObj.type = 'currently_selected_type';
     });
 
-    console.log('Now we are sending these objects:', messages);
+    // FIXME: temporary server re-emit fix because we don't have rpi
+    lastMessage = messages[0].text;
+
+    // console.log('Now we are sending these objects:', messages);
 
     // Set state so GiftedChat has everything:
     this.setState(previousState => ({
@@ -85,24 +84,26 @@ class Chat extends Component {
   }
 
   onRec(messages = [], chatCtx = this) {
-    console.warn('stuff rec\'d in messages', messages);
 
-    // FIXME: currently shoving some stuff in it
+    // FIXME: Due to post-COVID server limitations, the ID system is unusable
+    //        Just use a random number for the ID instead
     messages.forEach(msgObj => {
-      msgObj._id = Math.random(1000);
+      msgObj._id = Math.random(10000);
     });
 
-    chatCtx.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+    // Add new messages to UI:
+    // FIXME: this if statement is the other part of the repeated message fix
+    if (messages[0].text != lastMessage) {
+      chatCtx.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages),
+      }));
+    }
   }
 
   render() {
     return (
       <View style={{flex: 1}}>
         <GiftedChat
-          // messages={this.serverSocket.messageStore}
-          // onSend={() => {console.warn('hoho?'); this.serverSocket.send('msg')}}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
@@ -110,16 +111,11 @@ class Chat extends Component {
             name: 'username1'
           }}
         />
+        {/* NOTE: this line that used to be required suddenly broke everything on the android test phone: */}
         {/* {Platform.OS === 'android' ? <KeyboardSpacer /> : null } */}
       </View>
     );
   }
-}
-
-// TODO: trying to get the dang thing to show on gifted chat but it aint?
-// CHAT does currently show stuff once you reload but that's based on the default handler in the init function in serverhandler
-function gotMsg(msg) {
-  // GiftedChat.append(serverSocket.messageStore, JSON.stringify(msg));
 }
 
 const styles = StyleSheet.create({});

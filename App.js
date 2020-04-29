@@ -18,14 +18,6 @@ const navigator = createStackNavigator({
   ServerList: {screen: ServerList},
   Main: { screen: Main },
 });
-// // Export it as the root component
-// export default navigator;
-
-// export default function App() {
-//   return (
-
-//   );
-// }
 
 const App = createAppContainer(navigator);
 
