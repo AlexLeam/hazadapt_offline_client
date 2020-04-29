@@ -83,7 +83,7 @@ class HomeScreen extends Component {
               <CardItem button onPress={() => navigate('HelpForm')}>
               <View style={styles.circle} />
               </CardItem>
-              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigate('ServerList')}>
+              <CardItem footer bordered style={styles.labelContainer} button onPress={() => navigate('HelpForm')}>
                 <Text style={styles.buttonText}>Get Help</Text>
               </CardItem>
               </Card>

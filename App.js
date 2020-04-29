@@ -13,10 +13,10 @@ import ServerList from './components/ServerList';
 // Create the navigator
 const navigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen},
-  Main: { screen: Main },
-  Chat: { screen: Chat },
   HelpForm: { screen: HelpForm},
+  Chat: { screen: Chat },
   ServerList: {screen: ServerList},
+  Main: { screen: Main },
 });
 // // Export it as the root component
 // export default navigator;
